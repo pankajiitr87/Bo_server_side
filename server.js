@@ -12,7 +12,7 @@ const client = new MongoClient(url);
 
 app.use(express.json());
 app.use(cors({
-    origin:["https://bo-cilent-updated.vercel.app"],
+    origin:["https://bo-cilent.vercel.app"],
     methods:["GET", "POST", "PUT", "DELETE"],
     credential: true
 }))
