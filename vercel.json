@@ -2,13 +2,14 @@
     "version": 2,
     "builds": [
       {
+        "src": "downloadData/server.js",
         "use": "@vercel/node"
       }
     ],
     "routes":[
         {
-            "src": "/(.*)",
-            "dest": "/"
+            "src": "/downloadData/(.*)",
+            "dest": "/downloadData/server.js"
         }
     ]
   }
