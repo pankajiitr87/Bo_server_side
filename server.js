@@ -67,7 +67,7 @@ app.post('/downloadData', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
+app.listen(port, '192.168.14.60',() => {
     console.log(`Server running at http://localhost:${port}`);
 });
 
