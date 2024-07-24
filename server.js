@@ -11,11 +11,11 @@ const databaseName = 'Ecommerce';
 const client = new MongoClient(url);
 
 app.use(express.json());
-app.use(cors({
-    origin:["https://bo-cilent.vercel.app"],
-    methods:["GET", "POST", "PUT", "DELETE"],
-    credential: true
-}))
+// app.use(cors({
+//     origin:["https://bo-cilent.vercel.app"],
+//     methods:["GET", "POST", "PUT", "DELETE"],
+//     credential: true
+// }))
 
 app.post('/downloadData', async (req, res) => {
     let { filePath } = req.body;
