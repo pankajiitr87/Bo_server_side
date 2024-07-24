@@ -2,6 +2,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
+const { METHODS } = require('http');
 
 const app = express();
 const port = 4000;
@@ -10,6 +11,11 @@ const databaseName = 'Ecommerce';
 const client = new MongoClient(url);
 
 app.use(express.json());
+app.use(cors({
+    origin:["https://bo-cilent-a5xb.vercel.app"],
+    methods:["GET", "POST", "PUT", "DELETE"],
+    credential: true
+}))
 
 app.post('/downloadData', async (req, res) => {
     let { filePath } = req.body;
