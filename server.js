@@ -1,13 +1,14 @@
 const express = require('express');
-// const { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 const { METHODS } = require('http');
 const app = express();
 const port = 4000;
-// const url = 'mongodb://127.0.0.1:27017';
-// const databaseName = 'Ecommerce';
-// const client = new MongoClient(url);
+const url = 'mongodb://127.0.0.1:27017';
+const databaseName = 'Ecommerce';
+const client = new MongoClient(url);
+
 
 app.use(express.json());
 
@@ -34,39 +35,39 @@ app.post('/downloadData', async (req, res) => {
     
     let basePath = pathParts.slice(0, 2).join('/');
     console.log('basePath =', basePath);
-    // try {
-    //     // console.log('Connecting to MongoDB...');
-    //     await client.connect();
-    //     // console.log('Connected to MongoDB');
+    try {
+        // console.log('Connecting to MongoDB...');
+        await client.connect();
+        // console.log('Connected to MongoDB');
 
-    //     let db = client.db(databaseName);
-    //     // console.log(`Connected to database: ${databaseName}`);
+        let db = client.db(databaseName);
+        // console.log(`Connected to database: ${databaseName}`);
 
-    //     let collection = db.collection('files');
+        let collection = db.collection('files');
 
-    //     // Query MongoDB to find the document with matching conditions
-    //     let document = await collection.findOne({ domain, client: clientName, month, year });
-    //     // console.log('document.filename =', document.filename);
-    //     if (!document) {
-    //         console.log('No document found with the specified criteria');
-    //         res.status(404).send('No document found with the specified criteria');
-    //         return;
-    //     }
-    //     console.log('document.csv =', document.csv);
-    //     console.log('document.plots =', document.plots);
+        // Query MongoDB to find the document with matching conditions
+        let document = await collection.findOne({ domain, client: clientName, month, year });
+        // console.log('document.filename =', document.filename);
+        if (!document) {
+            console.log('No document found with the specified criteria');
+            res.status(404).send('No document found with the specified criteria');
+            return;
+        }
+        console.log('document.csv =', document.csv);
+        console.log('document.plots =', document.plots);
         
-    //     console.log(`Data saved to ${basePath}`);
-    //     res.status(200).send({
-    //         plots: document.plots,
-    //         csv: document.csv || null
-    //     });
-    // } catch (error) {
-    //     console.error('Error:', error);
-    //     res.status(500).send('Error fetching data');
-    // } finally {
-    //     await client.close();
-    //     console.log('MongoDB connection closed');
-    // }
+        console.log(`Data saved to ${basePath}`);
+        res.status(200).send({
+            plots: document.plots,
+            csv: document.csv || null
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Error fetching data');
+    } finally {
+        await client.close();
+        console.log('MongoDB connection closed');
+    }
 });
 
 app.listen(port, () => {
