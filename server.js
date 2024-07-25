@@ -3,18 +3,17 @@ const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 const { METHODS } = require('http');
-const cors = require('cors');
 const app = express();
 const port = 4000;
 const url = 'mongodb://127.0.0.1:27017';
 const databaseName = 'Ecommerce';
 const client = new MongoClient(url);
 
-// const cors = require('cors');
+const cors = require('cors');
 
-// app.use(cors({
-//     origin: 'https://bo-server-side-1.onrender.com'
-//   }));
+app.use(cors({
+    origin: 'https://bo-server-side-1.onrender.com'
+  }));
 
 app.use(express.json());
 
