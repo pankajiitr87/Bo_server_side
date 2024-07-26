@@ -1,13 +1,13 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+// const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 const { METHODS } = require('http');
 const app = express();
 const port = 4000;
-const url = 'mongodb://192.168.13.28:27017';
-const databaseName = 'Ecommerce';
-const client = new MongoClient(url);
+// const url = 'mongodb://192.168.13.28:27017';
+// const databaseName = 'Ecommerce';
+// const client = new MongoClient(url);
 const cors = require('cors');
 // Use cors middleware
 app.use(cors({
@@ -41,24 +41,24 @@ app.post('/downloadData', async (req, res) => {
     console.log('basePath =', basePath);
     try {
         // console.log('Connecting to MongoDB...');
-        await client.connect();
+        // await client.connect();
         // console.log('Connected to MongoDB');
 
-        let db = client.db(databaseName);
+        // let db = client.db(databaseName);
         // console.log(`Connected to database: ${databaseName}`);
 
-        let collection = db.collection('files');
+        // let collection = db.collection('files');
 
         // Query MongoDB to find the document with matching conditions
-        let document = await collection.findOne({ domain, client: clientName, month, year });
+        // let document = await collection.findOne({ domain, client: clientName, month, year });
         // console.log('document.filename =', document.filename);
-        if (!document) {
-            console.log('No document found with the specified criteria');
-            res.status(404).send('No document found with the specified criteria');
-            return;
-        }
-        console.log('document.csv =', document.csv);
-        console.log('document.plots =', document.plots);
+        // if (!document) {
+        //     console.log('No document found with the specified criteria');
+        //     res.status(404).send('No document found with the specified criteria');
+        //     return;
+        // }
+        // console.log('document.csv =', document.csv);
+        // console.log('document.plots =', document.plots);
         
         console.log(`Data saved to ${basePath}`);
         res.status(200).send({
