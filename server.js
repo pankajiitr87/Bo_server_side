@@ -12,8 +12,10 @@ const client = new MongoClient(url);
 
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname +"/public")))
 
 app.post('/downloadData', async (req, res) => {
+    console.log('in downloadData api');
     let { filePath } = req.body;
     console.log('filePath =', filePath);
 
