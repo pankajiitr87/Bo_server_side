@@ -1,21 +1,42 @@
 const express = require('express');
-// const { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb');
+// const mongoose = require('mongoose')
 const fs = require('fs');
 const path = require('path');
 const { METHODS } = require('http');
 const app = express();
-const port = 4000;
+const dotenv = require('dotenv');
+// Configure dotenv to load environment variables
+dotenv.config();
+
+const port = process.env.PORT || 4000;
+// Replace the following with your MongoDB connection string.
+const uri = process.env.MONGODB_URI ;
 // const url = 'mongodb://192.168.13.28:27017';
-// const databaseName = 'Ecommerce';
+const databaseName = 'BoData';
+// Create a new MongoClient
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 // const client = new MongoClient(url);
 // const cors = require('cors');
 // Use cors middleware
 // app.use(cors({
 //     origin: 'https://bo-server-side.onrender.com/' // specify your client's origin
 //   }));
+// mongoose.connect('mongodb+srv://pankajiitr87:a3kwmdDoE9xGpi5n@bo-db.0r1vwk0.mongodb.net/?retryWrites=true&w=majority&appName=Bo-db')
+
+// const User = require('./models/userModel')
+
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname +"/public")))
+
+// async function insert(){
+//     await User.create({
+//         name: "Pankaj",
+//         email: 'pankajiitr87@gmail.com'
+//     });
+// }
+// insert();
 
 app.post('/downloadData', async (req, res) => {
     console.log('in downloadData api');
@@ -41,38 +62,37 @@ app.post('/downloadData', async (req, res) => {
     console.log('basePath =', basePath);
     try {
         // console.log('Connecting to MongoDB...');
-        // await client.connect();
+        await client.connect();
         // console.log('Connected to MongoDB');
 
-        // let db = client.db(databaseName);
-        // console.log(`Connected to database: ${databaseName}`);
+        let db = client.db(databaseName);
+        console.log(`Connected to database: ${databaseName}`);
 
-        // let collection = db.collection('files');
+        let collection = db.collection('JsonData');
 
         // Query MongoDB to find the document with matching conditions
-        // let document = await collection.findOne({ domain, client: clientName, month, year });
+        let document = await collection.findOne({ domain, client: clientName, month, year });
         // console.log('document.filename =', document.filename);
-        // if (!document) {
-        //     console.log('No document found with the specified criteria');
-        //     res.status(404).send('No document found with the specified criteria');
-        //     return;
-        // }
+        if (!document) {
+            console.log('No document found with the specified criteria');
+            res.status(404).send('No document found with the specified criteria');
+            return;
+        }
         // console.log('document.csv =', document.csv);
-        // console.log('document.plots =', document.plots);
+        console.log('document.plots =', document.plots);
         
         console.log(`Data saved to ${basePath}`);
         res.status(200).send(
-            // {
-            // plots: document.plots,
-            // csv: document.csv || null
-            "Success from node server"
-        // }
+            {
+            plots: document.plots,
+            csv: document.csv || null
+        }
     );
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Error fetching data');
     } finally {
-        // await client.close();
+        await client.close();
         console.log('MongoDB connection closed');
     }
 });
