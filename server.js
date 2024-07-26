@@ -69,7 +69,7 @@ app.post('/downloadData', async (req, res) => {
         console.error('Error:', error);
         res.status(500).send('Error fetching data');
     } finally {
-        await client.close();
+        // await client.close();
         console.log('MongoDB connection closed');
     }
 });
