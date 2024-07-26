@@ -61,11 +61,13 @@ app.post('/downloadData', async (req, res) => {
         // console.log('document.plots =', document.plots);
         
         console.log(`Data saved to ${basePath}`);
-        res.status(200).send({
+        res.status(200).send(
+            // {
             // plots: document.plots,
             // csv: document.csv || null
             "Success from node server"
-        });
+        // }
+    );
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Error fetching data');
