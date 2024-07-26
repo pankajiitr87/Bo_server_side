@@ -8,11 +8,11 @@ const port = 4000;
 // const url = 'mongodb://192.168.13.28:27017';
 // const databaseName = 'Ecommerce';
 // const client = new MongoClient(url);
-const cors = require('cors');
+// const cors = require('cors');
 // Use cors middleware
-app.use(cors({
-    origin: 'https://bo-server-side.onrender.com/' // specify your client's origin
-  }));
+// app.use(cors({
+//     origin: 'https://bo-server-side.onrender.com/' // specify your client's origin
+//   }));
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname +"/public")))
