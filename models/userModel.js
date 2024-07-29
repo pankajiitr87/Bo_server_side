@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String
+    domain: { type: String, required: true },
+    client: { type: String, required: true },
+    month: { type: String, required: true },
+    year: { type: String, required: true },
+    plots: { type: Array, default: [] },
+    csv: { type: String, default: '' }
 })
 
-module.exports = mongoose.model('User', userSchema)
+const JsonData = mongoose.model('userSchema', userSchema);
+
+module.exports = JsonData;
