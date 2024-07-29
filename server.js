@@ -16,7 +16,7 @@ const databaseName = 'BoData';
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname +"/public")))
+// app.use(express.static(path.join(__dirname +"/public")))
 
 // Mongoose connection events for logging
 mongoose.connection.on('connected', () => {
