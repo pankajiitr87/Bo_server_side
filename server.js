@@ -54,20 +54,27 @@ app.post('/downloadData', async (req, res) => {
         client = await connectToMongoDB();
         const db = client.db(databaseName);
 
-        // Retrieve all collection names
-        const collections = await db.listCollections().toArray();
-        const collectionNames = collections.map(col => col.name);
+       // Extract and parse the collection name from the request body
+       const bodyContent = req.body;
+       const collectionName = bodyContent.split('/')[0];
+       if (!collectionName) {
+           return res.status(400).send('Invalid request format');
+       }
+
+       // Fetch documents from the specified collection
+       const collection = db.collection(collectionName);
+        // const collectionNames = collections.map(col => col.name);
 
         // Fetch all documents from each collection
         // const allData = {};
-        let documents;
+        // let documents;
 
-        for (const collectionName of collectionNames) {
-            const collection = db.collection(collectionName);
-            documents = await collection.find({}).toArray();
-            // allData[collectionName] = documents;
-        }
-
+        // for (const collectionName of collectionNames) {
+        //     const collection = db.collection(collectionName);
+        //     documents = await collection.find({}).toArray();
+        //     // allData[collectionName] = documents;
+        // }
+        const documents = await collection.find({}).toArray();
         console.log('All data fetched:', documents);
 
         res.status(200).json(documents);
