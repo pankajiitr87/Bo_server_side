@@ -6,6 +6,7 @@ const path = require('path');
 const { METHODS } = require('http');
 const app = express();
 const dotenv = require('dotenv');
+const cors = require('cors');
 // Configure dotenv to load environment variables
 dotenv.config();
 
@@ -15,7 +16,9 @@ const uri = process.env.MONGODB_URI ;
 const databaseName = 'BoData';
 
 app.use(express.json());
-
+app.use(cors({
+    origin: 'https://bo-cilent.vercel.app'
+ }));
 // app.use(express.static(path.join(__dirname +"/public")))
 
 // Mongoose connection events for logging
