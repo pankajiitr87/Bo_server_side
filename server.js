@@ -14,7 +14,6 @@ const port = process.env.PORT || 4000;
 const uri = process.env.MONGODB_URI ;
 const databaseName = 'BoData';
 
-app.use(cors())
 app.use(express.json());
 
 // app.use(express.static(path.join(__dirname +"/public")))
