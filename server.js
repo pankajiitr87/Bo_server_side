@@ -11,13 +11,13 @@ const cors = require('cors');
 dotenv.config();
 
 const port = process.env.PORT || 4000;
-// Replace the following with your MongoDB connection string.
+// Replace the following with your MongoDB connection string. https://bo-cilent.vercel.app/
 const uri = process.env.MONGODB_URI ;
 const databaseName = 'BoData';
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://bo-cilent.vercel.app'
+    origin: 'https://bo-cilent.vercel.app/'
  }));
 // app.use(express.static(path.join(__dirname +"/public")))
 
