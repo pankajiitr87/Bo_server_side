@@ -55,7 +55,7 @@ app.post('/downloadData', async (req, res) => {
         const db = client.db(databaseName);
 
        // Extract filePath from the request body
-       const { filePath, limit = 100, skip = 0 } = req.body;
+       const { filePath, limit = 50, skip = 0 } = req.body;
        if (!filePath) {
            return res.status(400).send('filePath is required');
        }
