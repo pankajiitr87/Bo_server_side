@@ -69,7 +69,7 @@ app.post('/downloadData', async (req, res) => {
        // Fetch documents from the specified collection
        const collection = db.collection(collectionName);
     
-        const documents = await collection.find({}).toArray();
+        const documents = await collection.find({}, { projection: { _id: 0 } }).toArray();
         console.log('All data fetched:', documents);
 
         res.status(200).json(documents);
