@@ -37,7 +37,11 @@ mongoose.connection.on('disconnected', () => {
 const connectToMongoDB = async () => {
     let client;
     try {
-        client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        client = new MongoClient(uri, { 
+            useNewUrlParser: true, 
+            useUnifiedTopology: true,
+            compressor: 'zlib' // Enable network compression
+         });
         await client.connect();
         console.log('Connected to MongoDB Atlas');
         return client;
