@@ -39,7 +39,9 @@ const connectToMongoDB = async () => {
     try {
         client = new MongoClient(uri, { 
             useNewUrlParser: true, 
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            poolSize: 10,
+            compressor: 'zlib' // Enable network compression
          });
         await client.connect();
         console.log('Connected to MongoDB Atlas');
