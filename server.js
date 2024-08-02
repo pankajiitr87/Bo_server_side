@@ -55,7 +55,7 @@ app.post('/downloadData', async (req, res) => {
         const db = client.db(databaseName);
 
        // Extract filePath from the request body
-       const { filePath, limit = 25, skip = 0 } = req.body;
+       const { filePath } = req.body;
        if (!filePath) {
            return res.status(400).send('filePath is required');
        }
@@ -69,10 +69,7 @@ app.post('/downloadData', async (req, res) => {
        // Fetch documents from the specified collection
        const collection = db.collection(collectionName);
     
-        const documents = await collection.find({}, { projection: { _id: 0 } })
-                                          .skip(skip)
-                                          .limit(limit)
-                                          .toArray();
+        const documents = await collection.find({}, { projection: { _id: 0 } }).toArray();
         console.log('All data fetched:', documents);
 
         res.status(200).json(documents);
